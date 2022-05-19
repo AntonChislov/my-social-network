@@ -1,0 +1,8 @@
+.item {
+  font-size: 10px;
+  padding-top: 20px;
+  color: rgb(238, 150, 9);
+}
+.item img {
+  width: 30px;
+}
