@@ -5,7 +5,7 @@ const Users = (props) => {
   let usersElement = props.usersData.map(user =>
     <div>
     <div>
-      <button>Follow</button>
+      <button>Unfollow</button>
       {user.name} {user.town}
     </div>
     </div>

@@ -1,4 +1,5 @@
-
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
 
 let initialState = {
   usersData: [
