@@ -3,9 +3,21 @@ const UNFOLLOW = 'UNFOLLOW'
 
 let initialState = {
   usersData: [
-    { id: 0, followed: false, name: 'User 1', town: 'Moscow' },
-    { id: 1, followed: true, name: 'User 2', town: 'Krasnodar' },
-    { id: 2, followed: false, name: 'User 3', town: 'Omsk' }
+    { id: 1, 
+      followed: false, 
+      name: 'User 1', 
+      location: {city: 'Moscow', country: 'Russia'}
+    },
+    { id: 2, 
+      followed: true, 
+      name: 'User 2', 
+      location: {city: 'Krasnodar', country: 'Russia'}
+    },
+    { id: 3, 
+      followed: false, 
+      name: 'User 3', 
+      location: {city: 'Minsk', country: 'Belarus'}
+}
   ]
 }
 
