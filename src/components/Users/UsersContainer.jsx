@@ -8,6 +8,8 @@ let mapStateToProps = (state) => {
   }
 }
 
+//test comment 
+
 let mapDispatchToProps = (dispatch) => {
   return {
     follow: (userId) => {
