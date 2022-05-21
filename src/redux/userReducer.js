@@ -4,17 +4,20 @@ const SET_USERS = 'SET-USERS'
 
 let initialState = {
   usersData: [
-    { id: 1, 
+    { 
+      id: 1, 
       followed: false, 
       name: 'User 1', 
       location: {city: 'Moscow', country: 'Russia'}
     },
-    { id: 2, 
+    { 
+      id: 2, 
       followed: true, 
       name: 'User 2', 
       location: {city: 'Krasnodar', country: 'Russia'}
     },
-    { id: 3, 
+    { 
+      id: 3, 
       followed: false, 
       name: 'User 3', 
       location: {city: 'Minsk', country: 'Belarus'}
@@ -47,7 +50,7 @@ const userReducer = (state = initialState, action) => {
     case SET_USERS:
       return {
         ...state,
-        users: [...state.users, ...action.users]
+        usersData: [...state.usersData, ...action.users]
       }
       default:
         return state
