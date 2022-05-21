@@ -10,7 +10,8 @@ const Users = (props) => {
        : <button onClick={props.follow(user.id)}>Follow</button>
     </div>
     <div>{users.name}</div>
-    <div>{users.town}</div>
+    <div>{users.location.city}</div>
+    <div>{users.location.country}</div>
   })  
  }
   </div>
