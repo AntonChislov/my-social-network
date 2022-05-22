@@ -3,7 +3,6 @@ import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../r
 import MyPosts from './MyPosts';
 
 let mapStateToProps = (state) => {
-  
   return {
     posts: state.postsPage.postsData,
     newPostText: state.postsPage.newPostText
