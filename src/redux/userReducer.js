@@ -3,24 +3,14 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
 let initialState = {
-  usersData: [{
-    id: 1,
-    followed: false,
-    name: 'User 1',
-    location: { city: 'Moscow', country: 'Russia' }
-  },
-  {
-    id: 2,
-    followed: true,
-    name: 'User 2',
-    location: { city: 'Krasnodar', country: 'Russia' }
-  },
-  {
-    id: 3,
-    followed: false,
-    name: 'User 3',
-    location: { city: 'Minsk', country: 'Belarus' }
-  }]
+  usersData: [
+  // ***************баг связаный с добавлением условия в SET_USERS***************
+    /* {
+      id: 1, 
+      name: 'text',
+      followed: true
+    } */
+  ]
 }
 
 const userReducer = (state = initialState, action) => {
@@ -46,10 +36,14 @@ const userReducer = (state = initialState, action) => {
         })
       }
     case SET_USERS:
+      if (state.usersData.length > 0) {
+      return state
+    } else {
       return {
         ...state,
         usersData: [...state.usersData, ...action.users]
       }
+    }
     default:
       return state
   }

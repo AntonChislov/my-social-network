@@ -1,30 +1,42 @@
+import * as axios from "axios";
 import React from "react";
+import userPhoto from '../../assets/images/user.png'
+import classes from './Users.module.css'
 
-const Users = (props) => {
+class Users extends React.Component {
 
-  if (props.usersData.length === 0) {
-    props.setUsers([
-      
-    ])
+  constructor(props) {
+    super(props)
+    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        this.props.setUsers(response.data.items)
+      })
+  } 
+
+  render() {
+    return <div>
+    {
+      this.props.usersData.map(user => <div key={user.id}>
+        <div><span>
+          <img className={classes.img} src={userPhoto} alt="" />
+        </span>
+        <span>
+          {user.followed
+            ? <button onClick={() => {
+              this.props.unfollow(user.id)
+            }}>Unfollow</button>
+            : <button onClick={() => {
+              this.props.follow(user.id)
+            }}>Follow</button>}
+        </span></div>
+        <span>{user.name} </span>
+        <span>{'user.location.city'} </span>
+        <span>{'user.location.country'}</span>
+      </div>
+      )
+    }
+  </div>
   }
-
-  return (
-    <div>
-      {
-        props.usersData.map(user => <div key={user.id}>
-          <div>
-            {user.followed
-              ? <button onClick={() => props.unfollow(user.id)}>Follow</button>
-              : <button onClick={() => props.follow(user.id)}>Unfollow</button>}
-          </div>
-          <div>{user.name}</div>
-          <div>{user.location.city}</div>
-          <div>{user.location.country}</div>
-        </div>
-        )
-      }
-    </div>
-  )
 }
 
 export default Users
+
