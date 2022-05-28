@@ -64,12 +64,12 @@ const userReducer = (state = initialState, action) => {
   }
 }
 
-export const followAC = (userId) => ({ type: FOLLOW, userId: userId })
-export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId: userId })
-export const setUsersAC = (users) => ({ type: SET_USERS, users: users })
-export const countTotalPageAC = (count) => ({ type: COUNT_PAGE, count: count })
-export const onClickAC = (count) => ({ type: ON_CLICK, count: count })
-export const setCurrentPageAC = (page) => ({ type: SET_CURRENT_PAGE, page: page })
-export const isFetchingAC = (vallue) => ({ type: IS_FETCHING, vallue: vallue })
+export const follow = (userId) => ({ type: FOLLOW, userId: userId })
+export const unfollow = (userId) => ({ type: UNFOLLOW, userId: userId })
+export const setUsers = (users) => ({ type: SET_USERS, users: users })
+export const countTotalPage = (count) => ({ type: COUNT_PAGE, count: count })
+export const onClick = (count) => ({ type: ON_CLICK, count: count })
+export const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, page: page })
+export const showIsFetching = (vallue) => ({ type: IS_FETCHING, vallue: vallue })
 
 export default userReducer
