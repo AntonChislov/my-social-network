@@ -2,7 +2,6 @@ const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 const COUNT_PAGE = 'COUNT-PAGE'
-const ON_CLICK = 'ON-CLICK'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const IS_FETCHING = 'IS-FETCHING'
 
@@ -68,7 +67,6 @@ export const follow = (userId) => ({ type: FOLLOW, userId: userId })
 export const unfollow = (userId) => ({ type: UNFOLLOW, userId: userId })
 export const setUsers = (users) => ({ type: SET_USERS, users: users })
 export const countTotalPage = (count) => ({ type: COUNT_PAGE, count: count })
-export const onClick = (count) => ({ type: ON_CLICK, count: count })
 export const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, page: page })
 export const showIsFetching = (vallue) => ({ type: IS_FETCHING, vallue: vallue })
 
