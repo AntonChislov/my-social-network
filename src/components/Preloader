@@ -1,0 +1,5 @@
+let Preloader = () => {
+  return (
+    <div>Preloader</div>
+)
+}
