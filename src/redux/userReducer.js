@@ -6,18 +6,11 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const IS_FETCHING = 'IS-FETCHING'
 
 let initialState = {
-  usersData: [
-    // ***************баг связаный с добавлением условия в SET_USERS***************
-    /* {
-      id: 1, 
-      name: 'text',
-      followed: true
-    } */
-  ],
+  usersData: [],
   countPage: 2,
   currentPage: 1,
   pageSize: 5,
-  isFetching: true
+  isFetching: true,
 }
 
 const userReducer = (state = initialState, action) => {
@@ -58,6 +51,7 @@ const userReducer = (state = initialState, action) => {
     case IS_FETCHING: {
       return { ...state, isFetching: action.vallue}
     }
+    
     default:
       return state
   }
