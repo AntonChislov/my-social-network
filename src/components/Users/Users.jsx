@@ -1,6 +1,5 @@
 import React from "react";
 import userPhoto from '../../assets/images/user.png'
-import preloader from '../../assets/images/preloader..gif'
 import classes from './Users.module.css'
 
 const Users = (props) => {
@@ -15,8 +14,6 @@ const Users = (props) => {
 
   return <div>
     <Preloader isFetching={props.isFetching} />
-    { props.isFetching ? <img src={preloader} alt="" /> : null }
-  
     <div>
       {pageArr.map(page => {
         return <span className={props.currentPage === page && classes.currentPage}
