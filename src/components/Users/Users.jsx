@@ -4,18 +4,10 @@ import classes from './Users.module.css'
 
 const Users = (props) => {
 
-  let totalPage = Math.ceil(props.countPage / 1000)
-
-  let pageArr = []
-
-  for (let i = 1; i <= totalPage; i++) {
-    pageArr.push(i)
-  }
-
   return <div>
     <Preloader isFetching={props.isFetching} />
     <div>
-      {pageArr.map(page => {
+      {props.pageArr.map(page => {
         return <span className={props.currentPage === page && classes.currentPage}
         onClick={() => { 
           props.updateCurrentPage(page) 
