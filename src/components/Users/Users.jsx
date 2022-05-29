@@ -14,7 +14,7 @@ const Users = (props) => {
   }
 
   return <div>
-    
+    <Preloader isFetching={props.isFetching} />
     { props.isFetching ? <img src={preloader} alt="" /> : null }
   
     <div>
