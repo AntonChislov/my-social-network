@@ -5,15 +5,6 @@ import { countTotalPage, follow, showIsFetching, setCurrentPage, setUsers, unfol
 import Users from './Users';
 
 class UsersContainer extends React.Component {
-
-  let totalPage = Math.ceil(this.props.countPage / 1000)
-
-  let pageArr = []
-
-  for (let i = 1; i <= totalPage; i++) {
-    pageArr.push(i)
-  }
-
   componentDidMount() {
     this.props.showIsFetching(true)
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
