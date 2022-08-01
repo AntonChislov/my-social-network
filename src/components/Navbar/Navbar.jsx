@@ -13,6 +13,9 @@ const Navbar = () => {
         <NavLink to='/dialogs' className={focus => focus.isActive ? classes.active : classes.item}>Messages</NavLink>
       </div>
       <div className={classes.item}>
+        <NavLink to='/users' className={focus => focus.isActive ? classes.active : classes.item}>All Users</NavLink>
+      </div>
+      <div className={classes.item}>
         <NavLink to='news' className={focus => focus.isActive ? classes.active : classes.item}>News</NavLink>
       </div>
       <div className={classes.item}>
@@ -20,9 +23,6 @@ const Navbar = () => {
       </div>
       <div className={classes.item}>
         <NavLink to='/settings' className={focus => focus.isActive ? classes.active : classes.item}>Settings</NavLink>
-      </div>
-      <div className={classes.item}>
-        <NavLink to='/users' className={focus => focus.isActive ? classes.active : classes.item}>All Users</NavLink>
       </div>
       <div>
         <FriendsContainer />

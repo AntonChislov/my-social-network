@@ -1,9 +1,10 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import userPhoto from '../../assets/images/user.png'
 import Preloader from "../Preloader";
 import classes from './Users.module.css'
 
-const Users = (props) => {  
+const Users = (props) => {
 
   let totalPage = Math.ceil(props.countPage / 1000)
 
@@ -18,30 +19,27 @@ const Users = (props) => {
     <div>
       {pageArr.map(page => {
         return <span className={props.currentPage === page && classes.currentPage}
-        onClick={() => { 
-          props.updateCurrentPage(page) 
-          }}>{page}</span>})}
+          onClick={() => { props.updateCurrentPage(page) }}>{page}</span>
+      })}
     </div>
-    {
-      props.usersData.map(user => <div key={user.id}>
-        <div><span> 
+    {props.usersData.map(user => <div key={user.id}>
+      <div><span>
+        <NavLink to={'/profile/' + user.id}>
           <img className={classes.img} src={user.photos.small != null ? user.photos.small : userPhoto} alt="" />
-        </span>
-          <span>
-            {user.followed
-              ? <button onClick={() => {
-                props.unfollow(user.id)
-              }}>Unfollow</button>
-              : <button onClick={() => {
-                props.follow(user.id)
-              }}>Follow</button>}
-          </span></div>
-        <span>{user.name}</span>
-        <span>{'user.location.city'}</span>
-        <span>{'user.location.country'}</span>
-      </div>
-      )
-    }
+        </NavLink>
+      </span>
+        <span>
+          {user.followed
+            ? <button onClick={() => {
+              props.unfollow(user.id)
+            }}>Unfollow</button>
+            : <button onClick={() => {
+              props.follow(user.id)
+            }}>Follow</button>}
+        </span></div>
+      <span>{user.name}</span>
+    </div>
+    )}
   </div>
 }
 

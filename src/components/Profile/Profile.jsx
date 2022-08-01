@@ -1,18 +1,14 @@
 import React from 'react';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import classes from './Profile.module.css'
+import MyProfile from './MyProfile';
 
-const Profile = (props) => {
+const Profile = () => {
   return (
     <div>
-      <img className='img1' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlHTN9KmPJLIPmg-DQH1E-2RzMgD18ujSe9Q&usqp=CAU' alt='' />
-      <div className={classes.item}>My content</div>
+      <MyProfile />
       <MyPostsContainer />
     </div>
   )
 }
 
 export default Profile
-
-
-

@@ -1,6 +1,6 @@
-import dialogsReducer from "./dialogsReducer"
-import navBarReducer from "./navBarReducer"
-import profileReducer from "./profileReducer"
+import dialogsReducer from "./redux/dialogsReducer"
+import navBarReducer from "./redux/navBarReducer"
+import profileReducer from "./redux/profileReducer"
 
 let store = {
   _state: {
@@ -39,7 +39,7 @@ let store = {
     }
   },
 
-  getState() { 
+  getState() {
     return this._state
   },
 
@@ -51,7 +51,7 @@ let store = {
     this._state.postsPage = profileReducer(this._state.postsPage, action)
     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
     this._state.navbar = navBarReducer(this._state.navbar, action)
-    
+
     this.rerenderEntireTree()
   }
 }
