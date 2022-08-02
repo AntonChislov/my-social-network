@@ -1,5 +1,4 @@
 import * as axios from "axios"
-import { follow } from "../redux/userReducer"
 
 const instans = axios.create({
   withCredentials: true,
@@ -21,4 +20,14 @@ export const usersAPI = {
   }
 }
 
-export default usersAPI
+export const profileAPI = {
+  getProfile(userId) {
+    return instans.get(`profile/${userId}`).then(response => response.data)
+  }
+}
+
+export const authAPI = {
+  isAuth() {
+    return instans.get(`auth`).then(response => response.data)
+  }
+}
