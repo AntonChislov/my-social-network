@@ -4,6 +4,7 @@ import userPhoto from '../../assets/images/user.png'
 import Preloader from "../Preloader";
 import axios from 'axios';
 import classes from './Users.module.css'
+import usersAPI from "../../api/api";
 
 const Users = (props) => {
 
@@ -29,30 +30,19 @@ const Users = (props) => {
           <img className={classes.img} src={user.photos.small != null ? user.photos.small : userPhoto} alt="" />
         </NavLink>
       </span>
-        <span>
+        <span> 
           {user.followed
             ? <button onClick={() => {
-              axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
-                withCredentials: true,
-                headers: {
-                  "API-KEY": "2cac03ab-6831-474b-ba3f-c5700832e553"
-                }
-              })
-                .then(response => {
-                  if (response.data.resultCode === 0) {
+              usersAPI.unfollow(user.id)
+                .then(data => {
+                  if (data.resultCode === 0) {
                     props.unfollow(user.id)
                   }
                 })
             }}>Unfollow</button>
             : <button onClick={() => {
-              axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                withCredentials: true,
-                headers: {
-                  "API-KEY": "2cac03ab-6831-474b-ba3f-c5700832e553"
-                }
-              })
-                .then(response => {
-                  if (response.data.resultCode === 0) {
+              usersAPI.follow(user.id).then(data => {
+                  if (data.resultCode === 0) {
                     props.follow(user.id)
                   }
                 })
