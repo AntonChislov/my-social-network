@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import userPhoto from '../../assets/images/user.png'
 import Preloader from "../Preloader";
+import axios from 'axios';
 import classes from './Users.module.css'
 
 const Users = (props) => {
@@ -24,17 +25,37 @@ const Users = (props) => {
     </div>
     {props.usersData.map(user => <div key={user.id}>
       <div><span>
-        <NavLink to={'/profile/' + user.id}>
+        <NavLink to={`/profile/${user.id}`}>
           <img className={classes.img} src={user.photos.small != null ? user.photos.small : userPhoto} alt="" />
         </NavLink>
       </span>
         <span>
           {user.followed
             ? <button onClick={() => {
-              props.unfollow(user.id)
+              axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
+                withCredentials: true,
+                headers: {
+                  "API-KEY": "2cac03ab-6831-474b-ba3f-c5700832e553"
+                }
+              })
+                .then(response => {
+                  if (response.data.resultCode === 0) {
+                    props.unfollow(user.id)
+                  }
+                })
             }}>Unfollow</button>
             : <button onClick={() => {
-              props.follow(user.id)
+              axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
+                withCredentials: true,
+                headers: {
+                  "API-KEY": "2cac03ab-6831-474b-ba3f-c5700832e553"
+                }
+              })
+                .then(response => {
+                  if (response.data.resultCode === 0) {
+                    props.follow(user.id)
+                  }
+                })
             }}>Follow</button>}
         </span></div>
       <span>{user.name}</span>
@@ -42,6 +63,5 @@ const Users = (props) => {
     )}
   </div>
 }
-
 
 export default Users
