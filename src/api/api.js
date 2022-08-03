@@ -28,6 +28,6 @@ export const profileAPI = {
 
 export const authAPI = {
   isAuth() {
-    return instans.get(`auth`).then(response => response.data)
+    return instans.get(`auth/me`).then(response => response.data)
   }
 }

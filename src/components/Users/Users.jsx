@@ -1,9 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import userPhoto from '../../assets/images/user.png'
-import Preloader from "../Preloader";
 import classes from './Users.module.css'
-import { usersAPI } from "../../api/api";
+import Preloader from "./Preloader";
 
 const Users = (props) => {
 
@@ -31,25 +30,15 @@ const Users = (props) => {
       </span>
         <span> 
           {user.followed
-            ? <button onClick={() => {
-              usersAPI.unfollow(user.id)
-                .then(data => {
-                  if (data.resultCode === 0) {
-                    props.unfollow(user.id)
-                  }
-                })
-            }}>Unfollow</button>
-            : <button onClick={() => {
-              usersAPI.follow(user.id).then(data => {
-                  if (data.resultCode === 0) {
-                    props.follow(user.id)
-                  }
-                })
-            }}>Follow</button>}
+            ? <button disabled={props.buttonDisabled.some(id => id === user.id)} 
+            onClick={() => {props.unfollowThunk(user.id)}}>Unfollow</button>
+            : <button disabled={props.buttonDisabled.some(id => id === user.id)} 
+            onClick={() => {props.followThunk(user.id)}}>Follow</button>}
         </span></div>
       <span>{user.name}</span>
     </div>
     )}
+    
   </div>
 }
 

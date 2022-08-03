@@ -6,7 +6,7 @@
   "header header"
   "nav content";
 
-  grid-template-rows: 70px 1fr;
+  grid-template-rows: 70px 891px;
   grid-template-columns: 2fr 10fr;
 
   background-color: rgba(0, 0, 0, 0.85);

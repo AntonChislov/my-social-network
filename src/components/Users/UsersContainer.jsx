@@ -1,38 +1,28 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { usersAPI } from '../../api/api';
-import { countTotalPage, follow, showIsFetching, setCurrentPage, setUsers, unfollow, } from "../../redux/userReducer";
+import { getUsersThunk, unfollowThunk, followThunk} from "../../redux/userReducer";
 import Users from './Users';
 
 class UsersContainer extends React.Component {
 
   componentDidMount() {
-    this.props.showIsFetching(true)
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-      this.props.showIsFetching(false)
-      this.props.setUsers(data.items);
-      this.props.countTotalPage(data.totalCount);
-    })
+    this.props.getUsersThunk(this.props.currentPage, this.props.pageSize)
   }
 
   updateCurrentPage = (page) => {
-    this.props.showIsFetching(true)
-    this.props.setCurrentPage(page)
-    usersAPI.getUsers(page, this.props.pageSize).then(data => {
-      this.props.showIsFetching(false)
-      this.props.setUsers(data.items);
-    })
+    this.props.getUsersThunk(page, this.props.pageSize)
   }
 
   render() {
     return <Users updateCurrentPage={this.updateCurrentPage}
-      follow={this.props.follow}
-      unfollow={this.props.unfollow}
       usersData={this.props.usersData}
       currentPage={this.props.currentPage}
       pageArr={this.pageArr}
       countPage={this.props.countPage}
-      isFetching={this.props.isFetching} />
+      buttonDisabled={this.props.buttonDisabled}
+      unfollowThunk={this.props.unfollowThunk}
+      followThunk={this.props.followThunk}
+    />
   }
 }
 
@@ -43,14 +33,8 @@ let mapStateToProps = (state) => {
     currentPage: state.usersPage.currentPage,
     pageSize: state.usersPage.pageSize,
     isFetching: state.usersPage.isFetching,
+    buttonDisabled: state.usersPage.buttonDisabled,
   }
 }
 
-export default connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setUsers,
-  countTotalPage,
-  setCurrentPage,
-  showIsFetching,
-})(UsersContainer)
+export default connect(mapStateToProps, { getUsersThunk, unfollowThunk, followThunk })(UsersContainer)
