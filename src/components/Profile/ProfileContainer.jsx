@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Profile from './Profile';
 import { getProfileThunk } from '../../redux/profileReducer'
 import { useParams } from 'react-router-dom';
+import WithRedirect from '../../hocs/hocRedirect';
 
 const withRouter = (Component) => {
   return (props) => {
@@ -30,8 +31,9 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
   }
 }
 
-export default connect(mapStateToProps, { getProfileThunk })(withRouter(ProfileContainer))
+export default connect(mapStateToProps, { getProfileThunk })(withRouter(WithRedirect(ProfileContainer)))
