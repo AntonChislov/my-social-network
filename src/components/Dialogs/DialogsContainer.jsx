@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import WithRedirect from "../../hocs/hocRedirect"
+import { WithRedirect } from "../../hocs/hocRedirect"
 import { sendMessagActionCreator, updateNewMessageTextActionCreator } from "../../redux/dialogsReducer"
 import Dialogs from "./Dialogs"
 
@@ -8,7 +8,6 @@ let mapStateToProps = (state) => {
     dialogsData: state.dialogsPage.dialogsData,
     messagesData: state.dialogsPage.messagesData,
     newMessageText: state.dialogsPage.newMessageText,
-    isAuth: state.auth.isAuth
   }
 }
 
