@@ -6,13 +6,13 @@ const Profile = (props) => {
   if (props.profile.userId === 24436) {
     return (
       <div>
-        <MyProfile profile={props.profile} />
+        <MyProfile status={props.status} profile={props.profile} updateStatusThunk={props.updateStatusThunk} />
       </div>
     )
   } else {
     return (
       <div>
-        <UserProfile profile={props.profile} />
+        <UserProfile status={props.status} profile={props.profile} updateStatusThunk={props.updateStatusThunk} />
       </div>
     )
   }

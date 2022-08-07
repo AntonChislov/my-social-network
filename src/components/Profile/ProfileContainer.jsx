@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { getProfileThunk } from '../../redux/profileReducer'
+import { getProfileThunk, getStatusThunk, updateStatusThunk } from '../../redux/profileReducer'
 import { useParams } from 'react-router-dom';
 import { WithRedirect } from '../../hocs/hocRedirect';
+import { compose } from 'redux';
 
 const withRouter = (Component) => {
   return (props) => {
@@ -20,19 +21,25 @@ class ProfileContainer extends React.Component {
       userId = 24436
     }
     this.props.getProfileThunk(userId)
+    this.props.getStatusThunk(userId)
   }
 
   render() {
     return (
-      <Profile {...this.props} profile={this.props.profile} />
+      <Profile status={this.props.status} {...this.props} profile={this.props.profile} updateStatusThunk={this.props.updateStatusThunk} />
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
   }
 }
 
-export default connect(mapStateToProps, { getProfileThunk })(withRouter(WithRedirect(ProfileContainer)))
+export default compose(
+  connect(mapStateToProps, { getProfileThunk, getStatusThunk, updateStatusThunk }),
+  withRouter,
+  WithRedirect
+  )(ProfileContainer)

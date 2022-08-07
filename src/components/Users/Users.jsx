@@ -36,6 +36,7 @@ const Users = (props) => {
             onClick={() => {props.followThunk(user.id)}}>Follow</button>}
         </span></div>
       <span>{user.name}</span>
+      <div>{user.status}</div>
     </div>
     )}
     

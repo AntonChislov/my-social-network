@@ -1,6 +1,7 @@
 import { authAPI } from "../api/api"
 
 const SET_AUTH_DATA = 'SET_AUTH_DATA'
+const SET_LOGIN = 'SET_LOGIN'
 
 let initialState = {
   id: null,
@@ -18,12 +19,19 @@ const authReducer = (state = initialState, action) => {
         ...action.authData,
         isAuth: true
       }
+    case SET_LOGIN:
+      return {
+        ...state,
+        isAuth: true
+      }
     default:
       return state
   }
 }
 
 export let setAuthData = (id, login, email) => ({ type: SET_AUTH_DATA, authData: {id, login, email} })
+
+export let isLogin = (value) => ({ type: SET_LOGIN, value })
 
 export const setAuthDataThunk = () => (dispatch) => {
   authAPI.isAuth().then(data => {

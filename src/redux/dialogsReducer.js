@@ -1,5 +1,4 @@
 const SEND_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-MESSAGE'
 
 let initialState = {
   dialogsData: [
@@ -14,9 +13,7 @@ let initialState = {
     { id: 1, message: 'message 2' },
     { id: 2, message: 'message 3' },
     { id: 3, message: 'message 4' }
-  ],
-
-  newMessageText: ''
+  ]
 }
 
 const dialogsReducer = (state = initialState, action) => {
@@ -25,21 +22,14 @@ const dialogsReducer = (state = initialState, action) => {
     case SEND_MESSAGE:
     return {
       ...state,
-      messagesData: [...state.messagesData, {message: state.newMessageText}],
+      messagesData: [...state.messagesData, {message: action.message}],
       newMessageText: ''
     }
-    case UPDATE_NEW_MESSAGE_TEXT:
-      return {
-        ...state,
-        newMessageText: action.message
-      }
     default:
       return state
   }
 }
 
-export let sendMessagActionCreator = () => ({ type: SEND_MESSAGE })
-
-export let updateNewMessageTextActionCreator = (addMessage) => ({ type: UPDATE_NEW_MESSAGE_TEXT, message: addMessage })
+export let sendMessagActionCreator = (message) => ({ type: SEND_MESSAGE, message })
 
 export default dialogsReducer

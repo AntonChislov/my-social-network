@@ -19,15 +19,24 @@ export const usersAPI = {
     return instans.delete(`follow/${userId}`).then(response => response.data)
   }
 }
-
+ 
 export const profileAPI = {
   getProfile(userId) {
     return instans.get(`profile/${userId}`).then(response => response.data)
+  },
+  getStatus(userId) {
+    return instans.get(`profile/status/${userId}`).then(response => response.data)
+  },
+  updateStatus(status) {
+    return instans.put(`profile/status`, {status}).then(response => response.data)
   }
 }
 
 export const authAPI = {
   isAuth() {
     return instans.get(`auth/me`).then(response => response.data)
+  },
+  logIn(authData) {
+    return instans.post(`auth/login`, {authData}).then(response => response.data)
   }
 }
