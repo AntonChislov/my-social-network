@@ -3,7 +3,7 @@ import MyProfile from './MyProfile';
 import UserProfile from './UserProfile';
 
 const Profile = (props) => {
-  if (props.profile.userId === 24436) {
+  if (props.profile.userId === props.initializedId) {
     return (
       <div>
         <MyProfile status={props.status} profile={props.profile} updateStatusThunk={props.updateStatusThunk} />

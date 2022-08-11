@@ -36,7 +36,10 @@ export const authAPI = {
   isAuth() {
     return instans.get(`auth/me`).then(response => response.data)
   },
-  logIn(authData) {
-    return instans.post(`auth/login`, {authData}).then(response => response.data)
+  logIn(email, password, rememberMe = false) {
+    return instans.post(`auth/login`, {email, password, rememberMe}).then(response => response.data)
+  },
+  logOut() {
+    return instans.delete(`auth/login`).then(response => response.data)
   }
 }

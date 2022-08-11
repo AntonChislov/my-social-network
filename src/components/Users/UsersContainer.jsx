@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { getUsersThunk, unfollowThunk, followThunk} from "../../redux/userReducer";
+import { getButtonDisabled, getCountPage, getCurrentPage, getIsFetching, getPageSize, getUsersData } from '../../redux/usersSelectors';
 import Users from './Users';
 
 class UsersContainer extends React.Component {
@@ -28,12 +29,12 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    usersData: state.usersPage.usersData,
-    countPage: state.usersPage.countPage,
-    currentPage: state.usersPage.currentPage,
-    pageSize: state.usersPage.pageSize,
-    isFetching: state.usersPage.isFetching,
-    buttonDisabled: state.usersPage.buttonDisabled,
+    usersData: getUsersData(state),
+    countPage: getCountPage(state),
+    currentPage: getCurrentPage(state),
+    pageSize: getPageSize(state),
+    isFetching: getIsFetching(state),
+    buttonDisabled: getButtonDisabled(state),
   }
 }
 
