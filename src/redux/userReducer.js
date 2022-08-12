@@ -4,12 +4,15 @@ const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 const COUNT_PAGE = 'COUNT-PAGE'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const ADD_FRIEND = 'ADD_FRIEND'
+const DEL_FRIEND = 'DEL_FRIEND'
 const IS_FETCHING = 'IS-FETCHING'
 const BUTTON_DISABLED = 'BUTTON_DISABLED'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 
 let initialState = {
   usersData: [],
+  friends: [],
   countPage: 2,
   currentPage: 1,
   pageSize: 5,
@@ -63,12 +66,25 @@ const userReducer = (state = initialState, action) => {
           : state.buttonDisabled.filter(id => id != action.userId)
       }
     }
-
+    case ADD_FRIEND: {
+      return {
+        ...state,
+        friends: [...state.friends, action.user].map(user => ({...user, followed: true}))
+      }
+    }
+    case DEL_FRIEND: {
+      return {
+        ...state,
+        friends: state.friends.filter(user => user.id !== action.user.id)
+      }
+    }
     default:
       return state
   }
 }
 
+export const addFriend = (user) => ({ type: ADD_FRIEND, user })
+export const delFriend = (user) => ({ type: DEL_FRIEND, user })
 export const follow = (userId) => ({ type: FOLLOW, userId: userId })
 export const unfollow = (userId) => ({ type: UNFOLLOW, userId: userId })
 export const setUsers = (users) => ({ type: SET_USERS, users: users })
@@ -87,22 +103,24 @@ export const getUsersThunk = (currentPage, pageSize) => (dispatch) => {
   })
 }
 
-export const unfollowThunk = (userId) => (dispatch) => {
-  dispatch(currentButtonDisabled(true, userId))
-  usersAPI.unfollow(userId).then(data => {
+export const unfollowThunk = (user) => (dispatch) => {
+  dispatch(currentButtonDisabled(true, user.id))
+  usersAPI.unfollow(user.id).then(data => {
     if (data.resultCode === 0) {
-      dispatch(unfollow(userId))
+      dispatch(delFriend(user))
+      dispatch(unfollow(user.id))
     }
-    dispatch(currentButtonDisabled(false, userId))
+    dispatch(currentButtonDisabled(false, user.id))
   })
 }
-export const followThunk = (userId) => (dispatch) => {
-  dispatch(currentButtonDisabled(true, userId))
-  usersAPI.follow(userId).then(data => {
+export const followThunk = (user) => (dispatch) => {
+  dispatch(currentButtonDisabled(true, user.id))
+  usersAPI.follow(user.id).then(data => {
     if (data.resultCode === 0) {
-      dispatch(follow(userId))
+      dispatch(addFriend(user))
+      dispatch(follow(user.id))
     }
-    dispatch(currentButtonDisabled(false, userId))
+    dispatch(currentButtonDisabled(false, user.id))
   })
 }
 

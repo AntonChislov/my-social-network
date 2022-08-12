@@ -31,9 +31,9 @@ const Users = (props) => {
         <span> 
           {user.followed
             ? <button disabled={props.buttonDisabled.some(id => id === user.id)} 
-            onClick={() => {props.unfollowThunk(user.id)}}>Unfollow</button>
+            onClick={() => {props.unfollowThunk(user)}}>Unfollow</button>
             : <button disabled={props.buttonDisabled.some(id => id === user.id)} 
-            onClick={() => {props.followThunk(user.id)}}>Follow</button>}
+            onClick={() => {props.followThunk(user)}}>Follow</button>}
         </span></div>
       <span>{user.name}</span>
       <div>{user.status}</div>
