@@ -1,6 +1,7 @@
 import React from 'react';
 import userPhoto from '../../assets/images/user.png'
 import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHook from './ProfileStatusWithHook';
 
 
 const UserProfile = (props) => {
@@ -9,7 +10,7 @@ const UserProfile = (props) => {
     <div>
       <img src={props.profile.photos.large === null ? userPhoto : props.profile.photos.large }></img>
       <div>{props.profile.fullName}</div>
-      <ProfileStatus status={props.status} updateStatusThunk={props.updateStatusThunk}/>
+      <ProfileStatusWithHook status={props.status} updateStatusThunk={props.updateStatusThunk}/>
     </div>
   )
 

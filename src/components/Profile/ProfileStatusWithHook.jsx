@@ -1,9 +1,9 @@
-import React, { userState} from 'react';
+import React, { useState } from 'react';
 
-const ProfileStatus = () => {
+const ProfileStatusWithHook = (props) => {
 
-  let [editMode, setEditMode] = userState(false) 
-  let [status, setStatus] = userState(props.status) 
+  let [editMode, setEditMode] = useState(false) 
+  let [status, setStatus] = useState(props.status) 
 
   let activateEditMode = () => {
     setEditMode(true)
@@ -11,7 +11,7 @@ const ProfileStatus = () => {
 
   let deactivateEditMode = () => {
     setEditMode(false)
-    updateStatusThunk(status)
+    props.updateStatusThunk(status)
   }
 
   let onStatusChange = (e) => {
@@ -33,5 +33,4 @@ const ProfileStatus = () => {
   )
 }
 
-
-export default ProfileStatus
+export default ProfileStatusWithHook
