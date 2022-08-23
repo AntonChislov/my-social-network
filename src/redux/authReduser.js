@@ -1,8 +1,8 @@
 import { authAPI } from "../api/api"
 
-const SET_AUTH_DATA = 'SET_AUTH_DATA'
-const SET_LOGIN = 'SET_LOGIN'
-const LOGOUT = 'LOGOUT'
+const SET_AUTH_DATA = 'authReducer_SET_AUTH_DATA'
+const SET_LOGIN = 'authReducer_SET_LOGIN'
+const LOGOUT = 'authReducer_LOGOUT'
 
 let initialState = {
   id: null,
@@ -34,35 +34,32 @@ const authReducer = (state = initialState, action) => {
   }
 }
 
-export let setAuthData = (id, login, email, isAuth) => ({ type: SET_AUTH_DATA, authData: {id, login, email, isAuth} })
+export let setAuthData = (id, login, email, isAuth) => ({ type: SET_AUTH_DATA, authData: { id, login, email, isAuth } })
 
 export let isLogin = (value) => ({ type: SET_LOGIN, value })
 
 export let logOut = () => ({ type: LOGOUT })
 
-export const setAuthDataThunk = () => (dispatch) => {
-  authAPI.isAuth().then(data => {
-    if (data.resultCode === 0) {
-      let {id, login, email} = data.data
-      dispatch(setAuthData(id, login, email, true))
-    }
-  })
+export const setAuthDataThunk = () => async (dispatch) => {
+  let data = await authAPI.isAuth()
+  if (data.resultCode === 0) {
+    let { id, login, email } = data.data
+    dispatch(setAuthData(id, login, email, true))
+  }
 }
 
-export const loginThunk = (email, password, rememberMe) => (dispatch) => {
-  authAPI.logIn(email, password, rememberMe).then(data => {
+export const loginThunk = (email, password, rememberMe) => async (dispatch) => {
+  let data = await authAPI.logIn(email, password, rememberMe)
     if (data.resultCode === 0) {
       dispatch(setAuthDataThunk())
     }
-  })
 }
 
-export const logOutThunk = () => (dispatch) => {
-  authAPI.logOut().then(data => {
+export const logOutThunk = () => async (dispatch) => {
+  let data = await authAPI.logOut()
     if (data.resultCode === 0) {
       dispatch(setAuthData(null, null, null, false))
     }
-  })
 }
 
 export default authReducer

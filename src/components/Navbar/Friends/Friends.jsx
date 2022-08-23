@@ -4,7 +4,7 @@ import classes from './Friends.module.css'
 
 const Friends = (props) => {
   
-  let friendElement = props.friends.map( friend => <Friend name={friend.name} key={friend.id} photo={friend.photos.small} />)
+  let friendElement = props.friends.map( friend => <Friend name={friend.name} key={friend.id} /* photo={friend.photos.small} */ />)
 
   return (
     <div className={classes.blok}>

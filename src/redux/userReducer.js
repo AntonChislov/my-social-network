@@ -1,4 +1,5 @@
 import { usersAPI } from "../api/api"
+import { updateObjectInArray } from "../utils/objectHelpers"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -25,22 +26,12 @@ const userReducer = (state = initialState, action) => {
     case FOLLOW:
       return {
         ...state,
-        usersData: state.usersData.map(user => {
-          if (user.id === action.userId) {
-            return { ...user, followed: true }
-          }
-          return user
-        })
+        usersData: updateObjectInArray(state.usersData, action.userId, 'id', {followed: true})
       }
     case UNFOLLOW:
       return {
-        ...state,
-        usersData: state.usersData.map(user => {
-          if (user.id === action.userId) {
-            return { ...user, followed: false }
-          }
-          return user
-        })
+        ...state,       
+         usersData: updateObjectInArray(state.usersData, action.userId, 'id', {followed: false})
       }
     case SET_USERS:
 
@@ -103,25 +94,22 @@ export const getUsersThunk = (currentPage, pageSize) => (dispatch) => {
   })
 }
 
-export const unfollowThunk = (user) => (dispatch) => {
+const followUnfollowFlow = async (dispatch, user, apiMethod, actionFollow, actionFriend) => {
   dispatch(currentButtonDisabled(true, user.id))
-  usersAPI.unfollow(user.id).then(data => {
-    if (data.resultCode === 0) {
-      dispatch(delFriend(user))
-      dispatch(unfollow(user.id))
-    }
-    dispatch(currentButtonDisabled(false, user.id))
-  })
+  let data = await apiMethod(user.id)
+  if (data.resultCode === 0) {
+    dispatch(actionFollow(user.id))
+    dispatch(actionFriend(user))
+  }
+  dispatch(currentButtonDisabled(false, user.id))
 }
-export const followThunk = (user) => (dispatch) => {
-  dispatch(currentButtonDisabled(true, user.id))
-  usersAPI.follow(user.id).then(data => {
-    if (data.resultCode === 0) {
-      dispatch(addFriend(user))
-      dispatch(follow(user.id))
-    }
-    dispatch(currentButtonDisabled(false, user.id))
-  })
+
+export const unfollowThunk = (user) => async (dispatch) => {
+  followUnfollowFlow(dispatch, user, usersAPI.unfollow.bind(usersAPI), unfollow, delFriend)
+}
+
+export const followThunk = (user) => async (dispatch) => {
+  followUnfollowFlow(dispatch, user, usersAPI.follow.bind(usersAPI), follow, addFriend)
 }
 
 export default userReducer
