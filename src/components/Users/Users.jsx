@@ -1,46 +1,23 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import userPhoto from '../../assets/images/user.png'
-import classes from './Users.module.css'
 import Preloader from "./Preloader";
+import Paginator from "../common/Paginator/Paginator";
+import User from "./User";
 
 const Users = (props) => {
-
-  let totalPage = Math.ceil(props.countPage / 1000)
-
-  let pageArr = []
-
-  for (let i = 1; i <= totalPage; i++) {
-    pageArr.push(i)
-  }
-
   return <div>
     <Preloader isFetching={props.isFetching} />
+    <Paginator countPage={props.countPage}
+      currentPage={props.currentPage}
+      updateCurrentPage={props.updateCurrentPage} />
     <div>
-      {pageArr.map(page => {
-        return <span className={props.currentPage === page && classes.currentPage}
-          onClick={() => { props.updateCurrentPage(page) }}>{page}</span>
-      })}
+      {props.usersData.map(user => <User user={user}
+        buttonDisabled={props.buttonDisabled}
+        unfollowThunk={props.unfollowThunk}
+        followThunk={props.followThunk}
+        key={user.id} />)}
     </div>
-    {props.usersData.map(user => <div key={user.id}>
-      <div><span>
-        <NavLink to={`/profile/${user.id}`}>
-          <img className={classes.img} src={user.photos.small != null ? user.photos.small : userPhoto} alt="" />
-        </NavLink>
-      </span>
-        <span> 
-          {user.followed
-            ? <button disabled={props.buttonDisabled.some(id => id === user.id)} 
-            onClick={() => {props.unfollowThunk(user)}}>Unfollow</button>
-            : <button disabled={props.buttonDisabled.some(id => id === user.id)} 
-            onClick={() => {props.followThunk(user)}}>Follow</button>}
-        </span></div>
-      <span>{user.name}</span>
-      <div>{user.status}</div>
-    </div>
-    )}
-    
   </div>
 }
+
 
 export default Users
