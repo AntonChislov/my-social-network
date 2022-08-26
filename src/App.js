@@ -13,12 +13,14 @@ import Login from './components/Header/Login';
 import { initializeApp } from './redux/appReduser'
 import { connect } from 'react-redux';
 import Preloader from './components/Users/Preloader';
+import { Provider } from 'react-redux';
+import store from './redux/reduxStore';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.initializeApp()
   }
-  
+
   render() {
     if (!this.props.initialized) {
       return <Preloader />
@@ -52,4 +54,14 @@ let mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {initializeApp})(App);
+const AppContainer = connect(mapStateToProps, { initializeApp })(App);
+
+const MainApp = () => {
+  return <React.StrictMode>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  </React.StrictMode>
+}
+
+export default MainApp;

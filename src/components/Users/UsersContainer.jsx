@@ -23,6 +23,7 @@ class UsersContainer extends React.Component {
       buttonDisabled={this.props.buttonDisabled}
       unfollowThunk={this.props.unfollowThunk}
       followThunk={this.props.followThunk}
+      pageSize={this.props.pageSize}
     />
   }
 }

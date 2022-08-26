@@ -16,7 +16,7 @@ let initialState = {
   friends: [],
   countPage: 2,
   currentPage: 1,
-  pageSize: 5,
+  pageSize: 10,
   isFetching: true,
   buttonDisabled: []
 }
