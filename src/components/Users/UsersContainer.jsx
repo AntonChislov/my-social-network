@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { getUsersThunk, unfollowThunk, followThunk} from "../../redux/userReducer";
-import { getButtonDisabled, getCountPage, getCurrentPage, getIsFetching, getPageSize, getUsersData } from '../../redux/usersSelectors';
+import { getButtonDisabled, getCountPage, getCurrentPage, getIsFetching, getPageSize, getPortionPage, getUsersData, portionSize } from '../../redux/usersSelectors';
 import Users from './Users';
 
 class UsersContainer extends React.Component {
@@ -24,6 +24,7 @@ class UsersContainer extends React.Component {
       unfollowThunk={this.props.unfollowThunk}
       followThunk={this.props.followThunk}
       pageSize={this.props.pageSize}
+      portionSize={this.props.portionSize}
     />
   }
 }
@@ -36,6 +37,7 @@ let mapStateToProps = (state) => {
     pageSize: getPageSize(state),
     isFetching: getIsFetching(state),
     buttonDisabled: getButtonDisabled(state),
+    portionSize: portionSize(state)
   }
 }
 

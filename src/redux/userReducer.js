@@ -18,7 +18,8 @@ let initialState = {
   currentPage: 1,
   pageSize: 10,
   isFetching: true,
-  buttonDisabled: []
+  buttonDisabled: [],
+  portionSize: 10
 }
 
 const userReducer = (state = initialState, action) => {

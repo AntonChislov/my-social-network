@@ -27,3 +27,6 @@ export const getIsFetching = (state) => {
 export const getButtonDisabled = (state) => {
   return state.usersPage.buttonDisabled
 }
+export const portionSize = (state) => {
+  return state.usersPage.portionSize
+}

@@ -9,7 +9,8 @@ const Users = (props) => {
     <Paginator countPage={props.countPage}
       currentPage={props.currentPage}
       updateCurrentPage={props.updateCurrentPage}
-      pageSize={props.pageSize} />
+      pageSize={props.pageSize}
+      portionSize={props.portionSize} />
     <div>
       {props.usersData.map(user => <User user={user}
         buttonDisabled={props.buttonDisabled}
