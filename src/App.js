@@ -17,7 +17,6 @@ import store from './redux/reduxStore';
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
-
 class App extends React.Component {
   componentDidMount() {
     this.props.initializeApp()
@@ -28,7 +27,7 @@ class App extends React.Component {
       return <Preloader />
     }
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <div className='app-wrapper'>
           <HeaderContainer />
           <Navbar />
