@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { getProfileThunk, getStatusThunk, updateStatusThunk } from '../../redux/profileReducer'
+import { getProfileThunk, getStatusThunk, updateStatusThunk, savePhotoThunk } from '../../redux/profileReducer'
 import { useParams } from 'react-router-dom';
 import { WithRedirect } from '../../hocs/hocRedirect';
 import { compose } from 'redux';
@@ -15,7 +15,7 @@ const withRouter = (Component) => {
 
 class ProfileContainer extends React.Component {
 
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.match.params.userId;
     if (!userId) {
       userId = this.props.initializedId
@@ -27,11 +27,25 @@ class ProfileContainer extends React.Component {
     this.props.getStatusThunk(userId)
   }
 
+  componentDidMount() {
+    this.refreshProfile()
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.match.params.userId != prevProps.match.params.userId) {
+    this.refreshProfile()
+    }
+  }
+
   render() {
     return (
       <Profile status={this.props.status} {...this.props} 
-      profile={this.props.profile} updateStatusThunk={this.props.updateStatusThunk}
-      initializedId={this.props.initializedId} />
+      isOwner={!this.props.match.params.userId}
+      profile={this.props.profile} 
+      updateStatusThunk={this.props.updateStatusThunk}
+      initializedId={this.props.initializedId}
+      savePhoto={this.props.savePhotoThunk}
+      photo={this.props.photo} />
     )
   }
 }
@@ -45,7 +59,7 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-  connect(mapStateToProps, { getProfileThunk, getStatusThunk, updateStatusThunk }),
+  connect(mapStateToProps, { getProfileThunk, getStatusThunk, updateStatusThunk, savePhotoThunk }),
   withRouter,
   WithRedirect
 )(ProfileContainer)

@@ -19,7 +19,7 @@ export const usersAPI = {
     return instans.delete(`follow/${userId}`).then(response => response.data)
   }
 }
- 
+
 export const profileAPI = {
   getProfile(userId) {
     return instans.get(`profile/${userId}`).then(response => response.data)
@@ -29,6 +29,15 @@ export const profileAPI = {
   },
   updateStatus(status) {
     return instans.put(`profile/status`, {status}).then(response => response.data)
+  },
+  savePhoto(file) {
+    let formData = new FormData()
+    formData.append('image', file)
+    return instans.put(`profile/photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+        }
+    }).then(response => response.data)
   }
 }
 

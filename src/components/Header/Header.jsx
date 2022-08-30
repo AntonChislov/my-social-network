@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import classes from './Header.module.css'
+import logo from '../../assets/images/600px-Wikimedia-logo.png'
 
 const Header = (props) => {
   return (
     <div className={classes.header}>
-      <img src='https://2pawdn1lybjtzusmc175drv1-wpengine.netdna-ssl.com/wp-content/uploads/2019/09/logo.png' alt='' />
+      <img src={logo} alt='' />
       <div className={classes.loginBlock}>
         {props.isAuth
           ? <div>

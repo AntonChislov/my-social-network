@@ -1,9 +1,12 @@
 import { profileAPI } from "../api/api"
+import userPhoto from '../assets/images/user.png'
+
 
 const ADD_POST = 'ADD-POST'
 const DEL_POST = 'DEL_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'GET_STATUS'
+const SET_PHOTO = 'SET_PHOTO'
 
 let initialState = {
   postsData: [
@@ -12,7 +15,7 @@ let initialState = {
   ],
   profile: {
     photos: {
-      large: null
+      large: userPhoto
     }
   },
   status: ''
@@ -41,6 +44,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         postsData: [...state.postsData.filter(post => post.id != action.id)]
       }
+    case SET_PHOTO:
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.file}
+      }
     default:
       return state
   }
@@ -53,6 +61,9 @@ export let deletePostActionCreator = (id) => ({ type: DEL_POST, id })
 export let setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 
 export let setStatus = (status) => ({ type: SET_STATUS, status })
+
+export let setPhoto = (file) => ({ type: SET_PHOTO, file })
+
 
 export const getProfileThunk = (userId) => async (dispatch) => {
   let data = await profileAPI.getProfile(userId)
@@ -67,6 +78,11 @@ export const getStatusThunk = (userId) => async (dispatch) => {
 export const updateStatusThunk = (status) => async (dispatch) => {
   let data = await profileAPI.updateStatus(status)
   if (data.resultCode === 0) dispatch(setStatus(status))
+}
+
+export const savePhotoThunk = (file) => async (dispatch) => {
+  let data = await profileAPI.savePhoto(file)
+  if (data.resultCode === 0) dispatch(setPhoto(data.data.photos))
 }
 
 export default profileReducer
