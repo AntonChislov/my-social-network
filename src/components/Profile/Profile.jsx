@@ -6,7 +6,7 @@ const Profile = (props) => {
   if (props.profile.userId === props.initializedId) {
     return (
       <div>
-        <MyProfile savePhoto={props.savePhoto} isOwner={props.isOwner} status={props.status} profile={props.profile} updateStatusThunk={props.updateStatusThunk} />
+        <MyProfile saveProfile={props.saveProfile} savePhoto={props.savePhoto} isOwner={props.isOwner} status={props.status} profile={props.profile} updateStatusThunk={props.updateStatusThunk} />
       </div>
     )
   } else {

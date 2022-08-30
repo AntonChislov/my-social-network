@@ -28,7 +28,10 @@ export const profileAPI = {
     return instans.get(`profile/status/${userId}`).then(response => response.data)
   },
   updateStatus(status) {
-    return instans.put(`profile/status`, {status}).then(response => response.data)
+    return instans.put(`profile/status`, { status }).then(response => response.data)
+  },
+  saveProfile(profile) {
+    return instans.put(`profile`, profile).then(response => response.data)
   },
   savePhoto(file) {
     let formData = new FormData()
@@ -36,7 +39,7 @@ export const profileAPI = {
     return instans.put(`profile/photo`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
-        }
+      }
     }).then(response => response.data)
   }
 }
@@ -45,10 +48,16 @@ export const authAPI = {
   isAuth() {
     return instans.get(`auth/me`).then(response => response.data)
   },
-  logIn(email, password, rememberMe = false) {
-    return instans.post(`auth/login`, {email, password, rememberMe}).then(response => response.data)
+  logIn(email, password, rememberMe = false, captcha = null) {
+    return instans.post(`auth/login`, { email, password, rememberMe, captcha}).then(response => response.data)
   },
   logOut() {
     return instans.delete(`auth/login`).then(response => response.data)
+  }
+}
+
+export const securityAPI = {
+  getCaptchaUrl() {
+      return instans.get(`security/get-captcha-url`);
   }
 }
